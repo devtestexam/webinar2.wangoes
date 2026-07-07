@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Live Workshop: How to Put AI Agents to Work in Your Business | Wangoes Technologies</title>
+<meta name="description" content="Free live workshop for founders — Wednesday, July 29 at 11:00 AM ET. The exact playbook our team uses to build AI chatbots, voice agents, and automations. No in-house AI team needed.">
+
+<!-- ============================================================
+     GOOGLE FONTS — Inter (the ONLY external request on this page)
+     ============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+     META PIXEL — PASTE REAL ID BEFORE LAUNCHING TRAFFIC.
+     Replace {{META_PIXEL_ID}} below (2 places) with your numeric
+     Pixel ID from Meta Events Manager, then REMOVE the surrounding
+     HTML comment markers to activate.
+     ============================================================
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '{{META_PIXEL_ID}}');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id={{META_PIXEL_ID}}&ev=PageView&noscript=1"
+/></noscript>
+-->
+
+<!-- ============================================================
+     LINKEDIN INSIGHT TAG — PASTE REAL ID BEFORE LAUNCHING TRAFFIC.
+     Replace {{LINKEDIN_PARTNER_ID}} below (2 places), then REMOVE
+     the surrounding HTML comment markers to activate.
+     ============================================================
+<script type="text/javascript">
+_linkedin_partner_id = "{{LINKEDIN_PARTNER_ID}}";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);
+</script>
+<noscript><img height="1" width="1" style="display:none;" alt=""
+src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /></noscript>
+-->
+
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=ofTubV2BxzpiGzSLgIv3FHo-hfaBzsJmH9chnk0heh0EHz9ueDjmm6p6KX0GbEwS_zYEIo0xHn_mqDRJCJG6X6FmWMpLCYGfi0IaQChlufAN_J29grUtFwVaNQNyiFtx0DubvjrL1cHjcBTZJB_jh_sBcr1GrYbaQtVytxx8-C0J4WapWqj5r7oZkFlccWMyfdDHZWfujTRWwxMSVFDS_0SO4VdY9pvtJNZRZEEke6E" charset="UTF-8"></script><style>
+/* ============================================================
+   WANGOES BRAND SYSTEM — light, premium SaaS theme
+   Red        #E50914 — CTAs, active states, important icons, focus rings
+   Red Deep   #B80710 — hover state for red elements
+   Red Bright #F01823 — small pop accents (sparingly)
+   Ink        #111111 — headings
+   Text Muted #52525B — body copy
+   Text Faint #71717A — secondary/muted labels
+   White #FFFFFF / Soft #FAFAFA / Warm #FFF8F8 — alternating light surfaces
+   Border #E8E8EC / Border Strong #D8D8DC — card & input borders
+   No dark page backgrounds anywhere — red is an accent only.
+   ============================================================ */
+:root{
+  --red:#E50914;
+  --red-deep:#B80710;
+  --red-bright:#F01823;
+  --white:#FFFFFF;
+  --soft:#FAFAFA;
+  --warm:#FFF8F8;
+  --border:#E8E8EC;
+  --border-strong:#D8D8DC;
+  --ink:#111111;
+  --text-muted:#52525B;
+  --text-faint:#71717A;
+  --error:#DC2626;
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  font-weight:400;
+  color:var(--ink);
+  background:var(--white);
+  line-height:1.6;
+  font-size:17px;
+}
+
+/* ---------- Layout primitives (mobile-first, designed at 375px) ---------- */
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.section{padding:56px 0}
+.section--soft{background:var(--soft)}
+.section--warm{background:var(--warm)}
+.section--grey{background:var(--soft)}
+
+h1,h2,h3{font-weight:800;line-height:1.2;letter-spacing:-0.02em}
+h2{font-size:1.65rem;color:var(--ink);margin-bottom:24px}
+
+/* ---------- CTA button ---------- */
+.cta-btn{
+  display:block;
+  width:100%;
+  background:var(--red);
+  color:#FFFFFF;
+  font-family:inherit;
+  font-size:1.1rem;
+  font-weight:800;
+  letter-spacing:0.01em;
+  border:none;
+  border-radius:10px;
+  padding:18px 28px;
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow:0 4px 14px rgba(229,9,20,.22);
+}
+.cta-btn:hover{background:var(--red-deep);transform:translateY(-1px);box-shadow:0 8px 20px rgba(229,9,20,.28)}
+.cta-btn:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.cta-center{max-width:420px;margin:36px auto 0}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(229,9,20,.08), transparent 38%),
+    radial-gradient(circle at 88% 26%, rgba(240,24,35,.06), transparent 32%),
+    radial-gradient(circle at 50% 100%, rgba(82,82,91,.05), transparent 40%),
+    linear-gradient(180deg, #FFFFFF 0%, #FFFBFB 55%, #FFF7F7 100%);
+  color:var(--text-muted);
+  padding:48px 0 64px;
+  overflow:hidden;
+}
+/* faint dot-grid texture, purely decorative */
+.hero::before{
+  content:"";
+  position:absolute;inset:0;
+  pointer-events:none;
+  background-image:radial-gradient(rgba(17,17,17,.06) 1px, transparent 1px);
+  background-size:24px 24px;
+  -webkit-mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 70%);
+  mask-image:radial-gradient(circle at 50% 30%, #000 0%, transparent 70%);
+}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  color:var(--red);
+  font-weight:600;
+  font-size:.7rem;          /* compact at 375px: fits on 1–2 lines */
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  background:rgba(229,9,20,.08);
+  border:1px solid rgba(229,9,20,.22);
+  border-radius:999px;
+  padding:7px 16px;
+  margin-bottom:20px;
+}
+.hero h1{
+  font-size:1.9rem;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+.hero h1 .hl{color:var(--red)}
+.subhead{
+  font-size:1.05rem;
+  color:var(--text-muted);
+  margin-bottom:32px;
+  max-width:640px;
+}
+.subhead strong{color:var(--red)}
+
+/* ---------- Countdown (mobile-first: slim horizontal strip) ---------- */
+.countdown-label{
+  font-size:.72rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--text-faint);
+  margin-bottom:10px;
+  text-align:center;
+  white-space:nowrap;      /* label stays on one line */
+}
+.countdown{
+  display:flex;
+  justify-content:center;
+  align-items:stretch;
+  gap:8px;
+  margin-bottom:8px;
+}
+.cd-unit{
+  text-align:center;
+  min-width:56px;
+  position:relative;
+  background:rgba(255,255,255,.75);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 6px;
+  box-shadow:0 2px 10px rgba(17,17,17,.05);
+}
+.cd-num{
+  display:block;
+  font-size:1.35rem;
+  font-weight:800;
+  color:var(--red);
+  font-variant-numeric:tabular-nums;
+  line-height:1.1;
+}
+.cd-lbl{
+  display:block;
+  font-size:.56rem;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--text-faint);
+  margin-top:2px;
+}
+/* hero countdown block: sits after the form on mobile */
+.hero-cd{margin:28px 0 0}
+.cd-live{
+  text-align:center;
+  font-size:1.25rem;
+  font-weight:800;
+  color:var(--red);
+  padding:12px 0;
+}
+.countdown-block{margin-bottom:32px}
+.countdown-block.hero-cd{margin:28px 0 0}
+
+/* ---------- Registration form ---------- */
+.reg-card{
+  position:relative;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px 24px;
+  box-shadow:0 20px 50px rgba(17,17,17,.10), 0 4px 16px rgba(229,9,20,.06);
+  max-width:520px;
+}
+/* soft red/pink glow behind the card, purely decorative */
+.reg-card::before{
+  content:"";
+  position:absolute;
+  inset:-28px;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 25%, rgba(229,9,20,.12), transparent 65%);
+}
+.reg-card h3{color:var(--ink);font-size:1.15rem;margin-bottom:16px}
+.field{margin-bottom:14px}
+.field label{
+  display:block;
+  font-weight:600;
+  font-size:.9rem;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.field input{
+  width:100%;
+  font-family:inherit;
+  font-size:1rem;
+  padding:14px 16px;
+  border:2px solid var(--border);
+  border-radius:8px;
+  color:var(--ink);
+  background:var(--soft);
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.field input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(229,9,20,.15);background:var(--white)}
+.field input[aria-invalid="true"]{border-color:var(--error)}
+.err-msg{
+  display:none;
+  color:var(--error);
+  font-size:.85rem;
+  font-weight:600;
+  margin-top:5px;
+}
+.err-msg.show{display:block}
+.microcopy{
+  font-style:italic;
+  font-size:.85rem;
+  color:var(--text-muted);
+  text-align:center;
+  margin-top:12px;
+}
+.trust-line{
+  font-size:.8rem;
+  color:var(--text-muted);
+  text-align:center;
+  margin-top:8px;
+}
+
+/* ---------- Sticky mobile CTA bar (mobile only) ---------- */
+.sticky-cta{
+  position:fixed;
+  left:0;right:0;bottom:0;
+  z-index:60;
+  display:none;
+  align-items:center;
+  gap:10px;
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-top:1px solid var(--border);
+  box-shadow:0 -4px 20px rgba(17,17,17,.08);
+}
+.sticky-cta.show{display:flex}
+.sticky-cta .cta-btn{
+  flex:1;
+  padding:14px 18px;
+  font-size:1rem;
+  box-shadow:none;
+}
+.sticky-cta-close{
+  flex-shrink:0;
+  width:38px;height:38px;
+  border:1px solid var(--border);
+  border-radius:50%;
+  background:var(--white);
+  color:var(--ink);
+  font-size:1.25rem;
+  line-height:1;
+  cursor:pointer;
+}
+.sticky-cta-close:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* ---------- What You'll Learn ---------- */
+.learn-list{list-style:none}
+.learn-list li{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  padding:18px 0;
+  border-bottom:1px solid var(--border);
+}
+.learn-list li:last-child{border-bottom:none}
+.learn-emoji{font-size:1.5rem;line-height:1.3;flex-shrink:0}
+.learn-list strong{color:var(--ink)}
+
+/* ---------- Proof bar ---------- */
+.proof-list{list-style:none;max-width:720px}
+.proof-list li{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:12px 0;
+  font-size:1.02rem;
+}
+.proof-check{color:var(--red);font-weight:800;flex-shrink:0}
+.proof-list strong{color:var(--ink)}
+.proof-note{
+  font-style:italic;
+  font-size:.9rem;
+  color:var(--text-faint);
+  margin-top:18px;
+}
+
+/* ---------- Who this is for ---------- */
+.fit-grid{display:grid;grid-template-columns:1fr;gap:24px}
+.fit-col{
+  background:var(--white);
+  border-radius:16px;
+  padding:26px 22px;
+  border:1px solid var(--border);
+  border-top:4px solid var(--red);
+  box-shadow:0 2px 14px rgba(17,17,17,.04);
+}
+.fit-col--not{border-top-color:var(--border-strong)}
+.fit-col h3{color:var(--ink);font-size:1.1rem;margin-bottom:14px}
+.fit-col ul{list-style:none}
+.fit-col li{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  padding:8px 0;
+  font-size:.98rem;
+}
+.fit-icon{flex-shrink:0;margin-top:4px}
+
+/* ---------- Host bio ---------- */
+.host-grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+.host-photo{
+  width:100%;
+  max-width:300px;
+  border-radius:14px;
+  display:block;
+  margin:0 auto;
+  background:var(--soft);
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+.host-quote{
+  border-left:4px solid var(--red);
+  padding-left:20px;
+}
+.host-quote p{margin-bottom:12px}
+.host-quote p:last-child{margin-bottom:0}
+.host-quote strong{color:var(--ink)}
+
+/* ---------- Scarcity close ---------- */
+.scarcity-box{max-width:680px;margin:0 auto;text-align:center}
+.scarcity-box .big{
+  font-size:1.4rem;
+  font-weight:800;
+  color:var(--ink);
+  margin-bottom:16px;
+  line-height:1.35;
+}
+.scarcity-box p strong{color:var(--red)}
+.scarcity-box p{color:var(--text-muted)}
+
+/* ---------- FAQ accordion ---------- */
+.faq{max-width:720px;margin:0 auto}
+.faq-item{
+  background:var(--white);
+  border-radius:14px;
+  margin-bottom:12px;
+  border:1px solid var(--border);
+  box-shadow:0 2px 12px rgba(17,17,17,.03);
+  overflow:hidden;
+}
+.faq-q{
+  width:100%;
+  font-family:inherit;
+  font-size:1rem;
+  font-weight:600;
+  color:var(--ink);
+  text-align:left;
+  background:none;
+  border:none;
+  padding:18px 48px 18px 20px;
+  cursor:pointer;
+  position:relative;
+}
+.faq-q:focus-visible{outline:3px solid var(--red);outline-offset:-3px}
+.faq-q::after{
+  content:"";
+  position:absolute;
+  right:20px;top:50%;
+  width:10px;height:10px;
+  border-right:2px solid var(--text-muted);
+  border-bottom:2px solid var(--text-muted);
+  transform:translateY(-70%) rotate(45deg);
+  transition:transform .2s ease;
+}
+.faq-q[aria-expanded="true"]::after{transform:translateY(-30%) rotate(-135deg)}
+.faq-a{padding:0 20px 18px;color:var(--text-muted)}
+.faq-a[hidden]{display:none}
+
+/* ---------- Footer ---------- */
+.footer{
+  background:var(--soft);
+  color:var(--text-faint);
+  text-align:center;
+  padding:28px 20px;
+  font-size:.82rem;
+  border-top:1px solid var(--border);
+}
+.footer a{color:var(--text-faint)}
+.footer a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* ---------- Scroll-in fade (non-blocking, content visible without JS) ---------- */
+.fade-in{opacity:1;transform:none}
+@media (prefers-reduced-motion:no-preference){
+  .js .fade-in{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+  .js .fade-in.visible{opacity:1;transform:none}
+}
+
+/* ---------- Desktop scale-up ---------- */
+@media (min-width:720px){
+  body{font-size:18px}
+  .section{padding:80px 0}
+  .hero{padding:72px 0 88px}
+  .hero h1{font-size:2.8rem;max-width:820px}
+  .subhead{font-size:1.15rem}
+  .eyebrow{font-size:.78rem;letter-spacing:.14em}
+  h2{font-size:2.1rem}
+  .cta-btn{width:auto;min-width:320px;display:inline-block}
+  .reg-card .cta-btn{width:100%;display:block}
+  .cta-center{text-align:center;max-width:none}
+  /* full-size countdown on desktop */
+  .countdown{gap:12px}
+  .countdown-label{font-size:.85rem;letter-spacing:.1em}
+  .cd-num{font-size:2.6rem}
+  .cd-unit{min-width:84px}
+  .cd-unit + .cd-unit::before{display:none}
+  .fit-grid{grid-template-columns:1fr 1fr}
+  .host-grid{grid-template-columns:300px 1fr}
+  /* two-column hero: copy + countdown left, form right */
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    grid-template-areas:"copy form" "cd form";
+    column-gap:48px;
+    align-items:start;
+  }
+  .hero-copy{grid-area:copy}
+  .hero-grid > #register{grid-area:form}
+  .countdown-block.hero-cd{grid-area:cd;margin:40px 0 0}
+  .sticky-cta{display:none !important}
+}
+</style>
+</head>
+
+<body>
+<script>document.documentElement.classList.add('js');document.body.classList.add('js');</script>
+
+<!-- ================================================================
+     SECTION 1 · HERO with registration form (the one canonical form)
+     ================================================================ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Free Live Workshop &middot; Wed, July 29 &middot; 11 AM ET / 4 PM UK</span>
+        <h1>How to Put <span class="hl">AI Agents</span> to Work in Your Business, Without Hiring an In-House AI Team</h1>
+        <p class="subhead">The exact playbook we use to build AI chatbots, voice agents &amp; automations for founders — including the voice agent that <strong>books paying customers on its own.</strong></p>
+      </div>
+
+      <div id="register">
+        <div class="reg-card">
+          <h3>Save your free seat now:</h3>
+
+          <!-- ============================================================
+               REGISTRATION FORM — REPLACE {{FORM_ENDPOINT}} BEFORE LAUNCH.
+               Paste your GoHighLevel form/webhook URL (or any ESP endpoint
+               that accepts a POST with fields: first_name, email, plus the
+               UTM hidden fields below).
+               In GHL: Sites > Forms > (your form) > Integrate > copy the
+               form action URL, or use Automations > Inbound Webhook URL.
+               On success, JS redirects the visitor to thank-you.html.
+               ============================================================ -->
+          <form id="regForm" action="{{FORM_ENDPOINT}}" method="POST" novalidate>
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input type="text" id="firstName" name="first_name" autocomplete="given-name" required aria-describedby="firstNameErr">
+              <p class="err-msg" id="firstNameErr" role="alert">Please enter your first name.</p>
+            </div>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required aria-describedby="emailErr">
+              <p class="err-msg" id="emailErr" role="alert">Please enter a valid email address.</p>
+            </div>
+
+            <!-- UTM passthrough — populated automatically by JS from the URL -->
+            <input type="hidden" name="utm_source"   id="utm_source"   value="">
+            <input type="hidden" name="utm_medium"   id="utm_medium"   value="">
+            <input type="hidden" name="utm_campaign" id="utm_campaign" value="">
+            <input type="hidden" name="utm_content"  id="utm_content"  value="">
+
+            <button type="submit" class="cta-btn">SAVE MY FREE SEAT &rarr;</button>
+          </form>
+
+          <!-- ============================================================
+               ALTERNATIVE: native GoHighLevel form embed.
+               To use it instead: (1) delete the <form> block above,
+               (2) uncomment this block, (3) replace the src with YOUR
+               GHL form embed URL from Sites > Forms > Integrate > Embed.
+               Set the form's redirect URL to thank-you.html inside GHL.
+          <iframe
+            src="https://api.leadconnectorhq.com/widget/form/YOUR_GHL_FORM_ID"
+            style="width:100%;height:420px;border:none;border-radius:8px"
+            id="inline-YOUR_GHL_FORM_ID"
+            title="Workshop Registration Form">
+          </iframe>
+          <script src="https://link.msgsndr.com/js/form_embed.js" data-ghl-embed-helper></script>
+               ============================================================ -->
+
+          <p class="microcopy">Live attendance is limited. Replay available for 48 hours only.</p>
+          <p class="trust-line">&#9989; Join founders from the US, UK &amp; EU</p>
+        </div>
+      </div>
+
+      <!-- Countdown instance #1 — below the form on mobile; on desktop
+           the grid places it back under the headline copy (left column) -->
+      <div class="countdown-block hero-cd">
+        <p class="countdown-label">The live workshop starts in:</p>
+        <div class="countdown js-countdown" role="timer" aria-live="off">
+          <div class="cd-unit"><span class="cd-num js-cd-days">--</span><span class="cd-lbl">Days</span></div>
+          <div class="cd-unit"><span class="cd-num js-cd-hours">--</span><span class="cd-lbl">Hours</span></div>
+          <div class="cd-unit"><span class="cd-num js-cd-mins">--</span><span class="cd-lbl">Minutes</span></div>
+          <div class="cd-unit"><span class="cd-num js-cd-secs">--</span><span class="cd-lbl">Seconds</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================================================================
+     SECTION 2 · WHAT YOU'LL LEARN (light)
+     ================================================================ -->
+<section class="section">
+  <div class="wrap fade-in">
+    <h2>In 60 minutes, you'll discover:</h2>
+    <ul class="learn-list">
+      <li>
+        <span class="learn-emoji" aria-hidden="true">&#127919;</span>
+        <span><strong>The &ldquo;First Domino&rdquo; method</strong> — why the founders winning with AI aren't doing <em>more</em>, they're automating ONE high-leverage workflow first (and how to pick yours in 10 minutes)</span>
+      </li>
+      <li>
+        <span class="learn-emoji" aria-hidden="true">&#129302;</span>
+        <span><strong>Why you don't need to be technical</strong> — how non-technical founders shipped a full AI-powered product, a computer-vision app, and a 24/7 AI voice agent by <em>directing</em> the build instead of doing it</span>
+      </li>
+      <li>
+        <span class="learn-emoji" aria-hidden="true">&#128184;</span>
+        <span><strong>The $50K myth</strong> — the fixed-scope method that gets a working AI system live in 2–3 weeks for less than the cost of one month of a single engineer's salary</span>
+      </li>
+      <li>
+        <span class="learn-emoji" aria-hidden="true">&#9888;&#65039;</span>
+        <span><strong>BONUS:</strong> The 3 mistakes that kill 80% of DIY AI projects (hallucinations, duct-taped ChatGPT, no guardrails) — and how to avoid all three</span>
+      </li>
+    </ul>
+    <div class="cta-center">
+      <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 3 · PROOF BAR (dark strip)
+     NOTE: anonymized descriptors only — never insert real client
+     or brand names on this page.
+     ================================================================ -->
+<section class="section section--warm">
+  <div class="wrap fade-in">
+    <h2>Real systems we've shipped for real businesses:</h2>
+    <ul class="proof-list">
+      <li><span class="proof-check" aria-hidden="true">&#10003;</span><span>AI support chatbot used daily by the support team of a <strong>global motorcycle brand</strong></span></li>
+      <li><span class="proof-check" aria-hidden="true">&#10003;</span><span>AI <strong>voice agent</strong> for a UK company that calls leads, checks live availability &amp; takes payment — end to end, no humans</span></li>
+      <li><span class="proof-check" aria-hidden="true">&#10003;</span><span><strong>Computer-vision AI</strong> that scores athletes for a European sports academy</span></li>
+      <li><span class="proof-check" aria-hidden="true">&#10003;</span><span>AI content &amp; posting automation across <strong>80+ client accounts</strong> for a US agency</span></li>
+      <li><span class="proof-check" aria-hidden="true">&#10003;</span><span><strong>$267K+</strong> in AI systems delivered to founders across the US, UK &amp; EU</span></li>
+    </ul>
+    <p class="proof-note">(All shipped by our engineering team — trusted by Western founders on retainer for years.)</p>
+    <div class="cta-center">
+      <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 4 · WHO THIS IS FOR / NOT FOR
+     ================================================================ -->
+<section class="section section--grey">
+  <div class="wrap fade-in">
+    <div class="fit-grid">
+      <div class="fit-col">
+        <h3>This workshop is for you if:</h3>
+        <ul>
+          <li>
+            <svg class="fit-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#E50914" stroke-width="2"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#E50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>You run a business or startup and <strong>know</strong> AI could save you time or make you money — but don't know where to start</span>
+          </li>
+          <li>
+            <svg class="fit-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#E50914" stroke-width="2"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#E50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>You've duct-taped ChatGPT or a no-code tool and it broke, hallucinated, or went nowhere</span>
+          </li>
+          <li>
+            <svg class="fit-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#E50914" stroke-width="2"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#E50914" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>You want a working system, not another course, community, or &ldquo;AI certification&rdquo;</span>
+          </li>
+        </ul>
+      </div>
+      <div class="fit-col fit-col--not">
+        <h3>It's NOT for you if:</h3>
+        <ul>
+          <li>
+            <svg class="fit-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#71717A" stroke-width="2"/><path d="M7 7l6 6M13 7l-6 6" stroke="#71717A" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>You want to <em>become</em> an AI freelancer or start an AI agency (this is for business owners who want AI <strong>working in their business</strong>)</span>
+          </li>
+          <li>
+            <svg class="fit-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#71717A" stroke-width="2"/><path d="M7 7l6 6M13 7l-6 6" stroke="#71717A" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>You're looking for get-rich-quick hype</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="cta-center">
+      <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 5 · HOST BIO (light, photo left / text right on desktop)
+     ================================================================ -->
+<section class="section">
+  <div class="wrap fade-in">
+    <div class="host-grid">
+      <!-- HOST PHOTO — replace shreeram.jpg with the real photo file
+           (square crop recommended, ~600x600px, compressed <80KB) -->
+      <img src="shreeram.jpg" alt="Shreeram Yadav, CEO of Wangoes Technologies" class="host-photo" width="300" height="300" loading="lazy">
+      <blockquote class="host-quote">
+        <p><strong>Hosted by Shreeram Yadav — CEO, Wangoes Technologies</strong></p>
+        <p>Shreeram's team has shipped AI chatbots, voice agents, ML models, and automations for founders and enterprises across the US, UK, and Europe — from global-brand support bots to computer-vision apps. No hype, no theory: just systems that are live and making money right now. He'll show you exactly how they're built — and how to get yours.</p>
+      </blockquote>
+    </div>
+    <div class="cta-center">
+      <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 6 · SCARCITY CLOSE (dark) + second countdown
+     ================================================================ -->
+<section class="section section--soft">
+  <div class="wrap fade-in">
+    <div class="scarcity-box">
+      <p class="big">&#9200; One live session only — Wednesday, July 29 at 11:00 AM ET.</p>
+      <p>Attend live to get the <strong>AI Use-Case Scorecard</strong> (free) and access to a live-only offer we won't repeat on the replay. Replay disappears after 48 hours.</p>
+
+      <div class="countdown-block" style="margin-top:32px">
+        <p class="countdown-label">The live workshop starts in:</p>
+        <!-- Countdown instance #2 (same JS drives both) -->
+        <div class="countdown js-countdown" role="timer" aria-live="off">
+          <div class="cd-unit"><span class="cd-num js-cd-days">--</span><span class="cd-lbl">Days</span></div>
+          <div class="cd-unit"><span class="cd-num js-cd-hours">--</span><span class="cd-lbl">Hours</span></div>
+          <div class="cd-unit"><span class="cd-num js-cd-mins">--</span><span class="cd-lbl">Minutes</span></div>
+          <div class="cd-unit"><span class="cd-num js-cd-secs">--</span><span class="cd-lbl">Seconds</span></div>
+        </div>
+      </div>
+
+      <div class="cta-center">
+        <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     SECTION 7 · FAQ (accordion)
+     ================================================================ -->
+<section class="section section--grey">
+  <div class="wrap fade-in">
+    <h2 style="text-align:center">Questions, answered</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h3><button class="faq-q" aria-expanded="false" aria-controls="faq1">&ldquo;I'm not technical — will I understand it?&rdquo;</button></h3>
+        <div class="faq-a" id="faq1" hidden><p>Yes. This is built for non-technical founders. Zero code shown, zero jargon.</p></div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" aria-expanded="false" aria-controls="faq2">&ldquo;Is this just a sales pitch?&rdquo;</button></h3>
+        <div class="faq-a" id="faq2" hidden><p>You'll get the full playbook whether you ever work with us or not. At the end, we'll show <em>one</em> way to get it done for you — take it or leave it.</p></div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" aria-expanded="false" aria-controls="faq3">&ldquo;What if I can't attend live?&rdquo;</button></h3>
+        <div class="faq-a" id="faq3" hidden><p>Register anyway — you'll get the 48-hour replay. But the Scorecard and the live-only bonus are for live attendees.</p></div>
+      </div>
+      <div class="faq-item">
+        <h3><button class="faq-q" aria-expanded="false" aria-controls="faq4">&ldquo;What time is it for me?&rdquo;</button></h3>
+        <div class="faq-a" id="faq4" hidden><p>11:00 AM New York &middot; 4:00 PM London &middot; 5:00 PM Central Europe.</p></div>
+      </div>
+    </div>
+    <div class="cta-center">
+      <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     MINIMAL FOOTER — the Privacy Policy link is the ONLY link on
+     this page besides the CTA anchors. href="#" is a placeholder.
+     ================================================================ -->
+<footer class="footer">
+  <p>&copy; 2026 Wangoes Technologies &middot; <a href="#">Privacy Policy</a></p>
+</footer>
+
+<!-- Sticky mobile CTA — appears only after scrolling past the hero
+     form, only on mobile; dismissible; auto-hides while typing -->
+<div class="sticky-cta" id="stickyCta">
+  <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+  <button type="button" class="sticky-cta-close" id="stickyClose" aria-label="Dismiss">&times;</button>
+</div>
+
+<script>
+/* ================================================================
+   ALL PAGE JS — vanilla, no libraries.
+   ================================================================ */
+(function () {
+  'use strict';
+
+  /* ---------- 1. COUNTDOWN TIMER ----------
+     Target: July 29, 2026, 11:00 AM Eastern Time.
+     The -04:00 offset IS Eastern Daylight Time on that date (DST),
+     and the ISO string makes it correct in EVERY visitor timezone. */
+  var TARGET = new Date('2026-07-29T11:00:00-04:00').getTime();
+  var countdowns = document.querySelectorAll('.js-countdown');
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function tick() {
+    var diff = TARGET - Date.now();
+
+    if (diff <= 0) {
+      // Workshop has started — swap every countdown for the LIVE message
+      countdowns.forEach(function (cd) {
+        if (!cd.classList.contains('is-live')) {
+          cd.classList.add('is-live');
+          cd.innerHTML = '<p class="cd-live">We\'re LIVE right now — join us!</p>';
+        }
+      });
+      clearInterval(timerId);
+      return;
+    }
+
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+
+    countdowns.forEach(function (cd) {
+      cd.querySelector('.js-cd-days').textContent  = pad(d);
+      cd.querySelector('.js-cd-hours').textContent = pad(h);
+      cd.querySelector('.js-cd-mins').textContent  = pad(m);
+      cd.querySelector('.js-cd-secs').textContent  = pad(s);
+    });
+  }
+
+  var timerId = setInterval(tick, 1000);
+  tick();
+
+  /* ---------- 2. UTM PASSTHROUGH ----------
+     Reads utm_source / utm_medium / utm_campaign / utm_content from
+     the URL and drops them into the hidden form fields so they reach
+     your CRM with every registration. */
+  var params = new URLSearchParams(window.location.search);
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (key) {
+    var el = document.getElementById(key);
+    if (el && params.get(key)) el.value = params.get(key);
+  });
+
+  /* ---------- 3. FORM VALIDATION + SUBMIT ---------- */
+  var form      = document.getElementById('regForm');
+  var firstName = document.getElementById('firstName');
+  var email     = document.getElementById('email');
+  var EMAIL_RE  = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function setError(input, errId, show) {
+    var err = document.getElementById(errId);
+    input.setAttribute('aria-invalid', show ? 'true' : 'false');
+    err.classList.toggle('show', show);
+  }
+
+  // Clear errors as the visitor types
+  firstName.addEventListener('input', function () { setError(firstName, 'firstNameErr', false); });
+  email.addEventListener('input',     function () { setError(email, 'emailErr', false); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    var ok = true;
+    if (!firstName.value.trim()) {
+      setError(firstName, 'firstNameErr', true);
+      firstName.focus();
+      ok = false;
+    }
+    if (!EMAIL_RE.test(email.value.trim())) {
+      setError(email, 'emailErr', true);
+      if (ok) email.focus();
+      ok = false;
+    }
+    if (!ok) return;
+
+    var btn = form.querySelector('.cta-btn');
+    btn.disabled = true;
+    btn.textContent = 'Saving your seat…';
+
+    var endpoint = form.getAttribute('action');
+
+    /* If {{FORM_ENDPOINT}} hasn't been replaced yet, skip the network
+       call so the page still works end-to-end during testing. */
+    if (endpoint.indexOf('{{') !== -1) {
+      window.location.href = 'thank-you.html';
+      return;
+    }
+
+    /* POST the fields to your GHL/ESP endpoint, then redirect.
+       mode:'no-cors' lets this work with webhook endpoints that don't
+       send CORS headers — the submission still goes through. */
+    fetch(endpoint, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: new FormData(form)
+    }).catch(function () { /* still redirect — don't strand the lead */ })
+      .then(function () { window.location.href = 'thank-you.html'; });
+  });
+
+  /* ---------- 4. CTA SMOOTH-SCROLL + FOCUS ----------
+     Every CTA scrolls to the one canonical hero form, then focuses
+     the first-name field so the visitor can type immediately. */
+  document.querySelectorAll('.js-scroll-cta').forEach(function (cta) {
+    cta.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(function () { firstName.focus({ preventScroll: true }); }, 600);
+    });
+  });
+
+  /* ---------- 5. FAQ ACCORDION (accessible) ---------- */
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      btn.setAttribute('aria-expanded', String(!expanded));
+      panel.hidden = expanded;
+    });
+  });
+
+  /* ---------- 6. SCROLL-DRIVEN UI: sticky CTA + scroll-in fades ----
+     One passive scroll handler drives both (no IntersectionObserver —
+     content must never depend on it firing).
+
+     Sticky mobile CTA: shows only after the visitor scrolls PAST the
+     hero form (never on top of it), hides while any form input is
+     focused so it can't cover fields during typing, and stays hidden
+     once dismissed. */
+  var stickyBar = document.getElementById('stickyCta');
+  var regEl     = document.getElementById('register');
+  var dismissed = false;
+  var typing    = false;
+  var pastForm  = false;
+  var fadeEls   = Array.prototype.slice.call(document.querySelectorAll('.fade-in'));
+
+  function updateSticky() {
+    stickyBar.classList.toggle('show', pastForm && !dismissed && !typing);
+  }
+  document.getElementById('stickyClose').addEventListener('click', function () {
+    dismissed = true;
+    updateSticky();
+  });
+  form.addEventListener('focusin',  function () { typing = true;  updateSticky(); });
+  form.addEventListener('focusout', function () { typing = false; updateSticky(); });
+
+  function onScroll() {
+    // sticky bar: form is fully off-screen above the viewport
+    pastForm = regEl.getBoundingClientRect().bottom < 0;
+    updateSticky();
+
+    // fades: reveal each section as it approaches the viewport
+    if (fadeEls.length) {
+      fadeEls = fadeEls.filter(function (el) {
+        if (el.getBoundingClientRect().top < window.innerHeight - 40) {
+          el.classList.add('visible');
+          return false;
+        }
+        return true;
+      });
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>
