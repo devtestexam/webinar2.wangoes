@@ -878,6 +878,8 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
               <input type="hidden" name="utm_content" id="utm_content" value="">
 
               <button type="submit" class="cta-btn">SAVE MY FREE SEAT &rarr;</button>
+              <p class="err-msg" id="regSubmitErr" role="alert">Something went wrong saving your seat. Please try
+                again.</p>
             </form>
 
             <!-- ============================================================
@@ -946,7 +948,7 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
         </li>
       </ul>
       <div class="cta-center">
-        <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+        <a href="#register" class="cta-btn js-scroll-cta" data-cta-name="learn_section_cta_click">SAVE MY FREE SEAT &rarr;</a>
       </div>
     </div>
   </section>
@@ -974,7 +976,7 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
       <p class="proof-note">(All shipped by our engineering team trusted by Western founders on retainer for years.)
       </p>
       <div class="cta-center">
-        <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+        <a href="#register" class="cta-btn js-scroll-cta" data-cta-name="proof_section_cta_click">SAVE MY FREE SEAT &rarr;</a>
       </div>
     </div>
   </section>
@@ -1037,7 +1039,7 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
         </div>
       </div>
       <div class="cta-center">
-        <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+        <a href="#register" class="cta-btn js-scroll-cta" data-cta-name="fit_section_cta_click">SAVE MY FREE SEAT &rarr;</a>
       </div>
     </div>
   </section>
@@ -1061,7 +1063,7 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
         </blockquote>
       </div>
       <div class="cta-center">
-        <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+        <a href="#register" class="cta-btn js-scroll-cta" data-cta-name="host_section_cta_click">SAVE MY FREE SEAT &rarr;</a>
       </div>
     </div>
   </section>
@@ -1088,7 +1090,7 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
         </div>
 
         <div class="cta-center">
-          <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+          <a href="#register" class="cta-btn js-scroll-cta" data-cta-name="scarcity_section_cta_click">SAVE MY FREE SEAT &rarr;</a>
         </div>
       </div>
     </div>
@@ -1131,7 +1133,7 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
         </div>
       </div>
       <div class="cta-center">
-        <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+        <a href="#register" class="cta-btn js-scroll-cta" data-cta-name="faq_section_cta_click">SAVE MY FREE SEAT &rarr;</a>
       </div>
     </div>
   </section>
@@ -1147,9 +1149,15 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
   <!-- Sticky mobile CTA — appears only after scrolling past the hero
      form, only on mobile; dismissible; auto-hides while typing -->
   <div class="sticky-cta" id="stickyCta">
-    <a href="#register" class="cta-btn js-scroll-cta">SAVE MY FREE SEAT &rarr;</a>
+    <a href="#register" class="cta-btn js-scroll-cta" data-cta-name="sticky_cta_click">SAVE MY FREE SEAT &rarr;</a>
     <button type="button" class="sticky-cta-close" id="stickyClose" aria-label="Dismiss">&times;</button>
   </div>
+
+  <!-- Lead-submission plumbing — config.js is generated (gitignored) by
+     scripts/generate-config.js, never hand-edited or committed. -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/utm.js"></script>
+  <script src="assets/js/submit-lead.js"></script>
 
   <script>
     /* ================================================================
@@ -1224,8 +1232,13 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
       firstName.addEventListener('input', function () { setError(firstName, 'firstNameErr', false); });
       email.addEventListener('input', function () { setError(email, 'emailErr', false); });
 
+      var submitErr = document.getElementById('regSubmitErr');
+      var submitting = false;
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+
+        if (submitting) return; // guard against double-click / double-submit
 
         var ok = true;
         if (!firstName.value.trim()) {
@@ -1240,38 +1253,44 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
         }
         if (!ok) return;
 
+        submitErr.classList.remove('show');
+        submitting = true;
+
         var btn = form.querySelector('.cta-btn');
+        var originalLabel = btn.textContent;
         btn.disabled = true;
         btn.textContent = 'Saving your seat…';
 
-        var endpoint = form.getAttribute('action');
-
-        /* If {{FORM_ENDPOINT}} hasn't been replaced yet, skip the network
-           call so the page still works end-to-end during testing. */
-        if (endpoint.indexOf('{{') !== -1) {
+        submitLead({
+          firstName: firstName.value.trim(),
+          email: email.value.trim(),
+          source: 'webinar_registration',
+          action: 'save_free_seat'
+        }).then(function () {
           window.location.href = 'thank-you.html';
-          return;
-        }
-
-        /* POST the fields to your GHL/ESP endpoint, then redirect.
-           mode:'no-cors' lets this work with webhook endpoints that don't
-           send CORS headers — the submission still goes through. */
-        fetch(endpoint, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: new FormData(form)
-        }).catch(function () { /* still redirect — don't strand the lead */ })
-          .then(function () { window.location.href = 'thank-you.html'; });
+        }).catch(function () {
+          submitting = false;
+          btn.disabled = false;
+          btn.textContent = originalLabel;
+          submitErr.classList.add('show');
+        });
       });
 
       /* ---------- 4. CTA SMOOTH-SCROLL + FOCUS ----------
          Every CTA scrolls to the one canonical hero form, then focuses
-         the first-name field so the visitor can type immediately. */
+         the first-name field so the visitor can type immediately.
+         Also fires a lightweight, non-blocking CTA tracking event —
+         this never delays or interrupts the scroll. */
       document.querySelectorAll('.js-scroll-cta').forEach(function (cta) {
         cta.addEventListener('click', function (e) {
           e.preventDefault();
           document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
           setTimeout(function () { firstName.focus({ preventScroll: true }); }, 600);
+
+          submitLead({
+            source: 'cta',
+            action: cta.getAttribute('data-cta-name') || 'register_cta_click'
+          }).catch(function () { /* tracking only — never surface this to the visitor */ });
         });
       });
 

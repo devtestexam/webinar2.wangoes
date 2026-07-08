@@ -509,6 +509,12 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
     <p>&copy; 2026 Wangoes Technologies</p>
   </footer>
 
+  <!-- Lead-submission plumbing — config.js is generated (gitignored) by
+     scripts/generate-config.js, never hand-edited or committed. -->
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/utm.js"></script>
+  <script src="assets/js/submit-lead.js"></script>
+
   <script>
     /* ================================================================
        THANK-YOU PAGE JS — vanilla, no libraries.
@@ -551,6 +557,16 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
         '&body=' + encodeURIComponent(EVT.details) +
         '&location=' + encodeURIComponent(WEBINAR_LINK);
 
+      /* ---------- CTA tracking for the calendar buttons ----------
+         Fire-and-forget: never blocks or interrupts the button's own
+         navigation/download action. */
+      ['gcalBtn', 'outlookBtn', 'appleBtn'].forEach(function (id) {
+        var actionName = { gcalBtn: 'calendar_google_click', outlookBtn: 'calendar_outlook_click', appleBtn: 'calendar_apple_click' }[id];
+        document.getElementById(id).addEventListener('click', function () {
+          submitLead({ source: 'cta', action: actionName }).catch(function () { });
+        });
+      });
+
       /* ---------- Apple / any app: .ics file generated in-browser ---------- */
       document.getElementById('appleBtn').addEventListener('click', function () {
         var ics = [
@@ -589,18 +605,24 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
 
       /* ============================================================
          Shared mini-form handler for steps 2 & 3.
-         Validates, POSTs to the {{FORM_ENDPOINT}} placeholder (skips
-         the network call if the placeholder hasn't been replaced yet,
-         so the page is testable end-to-end), then shows an inline
-         success message — no page reloads, no alert() popups.
+         Validates, sends through the centralized submitLead() helper,
+         then shows an inline success message — no page reloads, no
+         alert() popups. On a real submission failure (network/Apps
+         Script error) the validation error message is reused to show
+         a generic retry message, so the lead is never silently lost.
          ============================================================ */
-      function wireForm(formId, validate, okId, errId) {
+      function wireForm(formId, validate, buildPayload, okId, errId) {
         var form = document.getElementById(formId);
         var ok = document.getElementById(okId);
         var err = document.getElementById(errId);
+        var validationMsg = err.textContent;
+        var submitting = false;
 
         form.addEventListener('submit', function (e) {
           e.preventDefault();
+          if (submitting) return;
+
+          err.textContent = validationMsg;
           err.classList.remove('show');
 
           if (!validate()) {
@@ -608,17 +630,18 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
             return;
           }
 
-          var finish = function () {
+          submitting = true;
+          var btn = form.querySelector('.sub-btn');
+          btn.disabled = true;
+
+          submitLead(buildPayload()).then(function () {
             ok.classList.add('show');
-            form.querySelector('.sub-btn').disabled = true;
-          };
-
-          var endpoint = form.getAttribute('action');
-          if (endpoint.indexOf('{{') !== -1) { finish(); return; }
-
-          fetch(endpoint, { method: 'POST', mode: 'no-cors', body: new FormData(form) })
-            .catch(function () { })
-            .then(finish);
+          }).catch(function () {
+            submitting = false;
+            btn.disabled = false;
+            err.textContent = 'Something went wrong — please try again.';
+            err.classList.add('show');
+          });
         });
       }
 
@@ -626,11 +649,23 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
       wireForm('phoneForm', function () {
         var digits = document.getElementById('phone').value.replace(/\D/g, '');
         return digits.length >= 7 && digits.length <= 15;
+      }, function () {
+        return {
+          phone: document.getElementById('phone').value.trim(),
+          source: 'sms_reminder_form',
+          action: 'request_reminder'
+        };
       }, 'phoneOk', 'phoneErr');
 
       /* Step 3 — dropdown: any non-empty choice */
       wireForm('segForm', function () {
         return document.getElementById('segment').value !== '';
+      }, function () {
+        return {
+          automationPriority: document.getElementById('segment').value,
+          source: 'segmentation_form',
+          action: 'select_automation_priority'
+        };
       }, 'segOk', 'segErr');
     })();
   </script>
