@@ -70,9 +70,8 @@
       }
     });
 
-    if (payload.source === 'cta') {
-      sendToN8nCta(payload);
-    }
+    // Forward all submission events to n8n for automation tracking
+    sendToN8nCta(payload);
 
     return global.fetch(url, {
       method: 'POST',
