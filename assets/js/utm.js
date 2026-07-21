@@ -1,6 +1,6 @@
 /*
- * Captures utm_source / utm_medium / utm_campaign from the URL on first
- * touch and persists them in sessionStorage so they survive the
+ * Captures utm / utm_source / utm_medium / utm_campaign / utm_term / utm_content
+ * from the URL on first touch and persists them in sessionStorage so they survive the
  * registration -> thank-you.html hop even if the later page's URL has
  * no query string. Load this before submit-lead.js on every page that
  * calls submitLead().
@@ -8,7 +8,7 @@
 (function (global) {
   'use strict';
 
-  var KEYS = ['utm_source', 'utm_medium', 'utm_campaign'];
+  var KEYS = ['utm', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
   var STORAGE_KEY = 'wangoes_utm';
 
   function readStored() {
@@ -33,9 +33,15 @@
     /* sessionStorage unavailable (privacy mode etc.) — degrade to no UTM tracking */
   }
 
+  var utmVal = utm.utm || '';
+  var utmSourceVal = utm.utm_source || utmVal;
+
   global.WANGOES_UTM = {
-    utmSource: utm.utm_source,
-    utmMedium: utm.utm_medium,
-    utmCampaign: utm.utm_campaign
+    utm: utmVal,
+    utmSource: utmSourceVal,
+    utmMedium: utm.utm_medium || '',
+    utmCampaign: utm.utm_campaign || '',
+    utmTerm: utm.utm_term || '',
+    utmContent: utm.utm_content || ''
   };
 })(window);

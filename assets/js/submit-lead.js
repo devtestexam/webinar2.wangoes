@@ -54,9 +54,12 @@
       page: global.location.pathname,
       timestamp: new Date().toISOString(),
       userAgent: global.navigator ? global.navigator.userAgent : '',
+      utm: utm.utm,
       utmSource: utm.utmSource,
       utmMedium: utm.utmMedium,
-      utmCampaign: utm.utmCampaign
+      utmCampaign: utm.utmCampaign,
+      utmTerm: utm.utmTerm,
+      utmContent: utm.utmContent
     };
 
     // Merge base metadata first, then caller fields, then drop anything empty
