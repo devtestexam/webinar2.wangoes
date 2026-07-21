@@ -19,29 +19,47 @@
     }
   }
 
-  var params = new URLSearchParams(global.location.search);
+  var urlParams = {};
+  if (global.location && global.location.search) {
+    try {
+      var params = new URLSearchParams(global.location.search);
+      params.forEach(function (val, key) {
+        if (key && val) {
+          urlParams[key.toLowerCase()] = val.trim();
+        }
+      });
+    } catch (e) {
+      /* Fallback for environments where URLSearchParams is unavailable */
+    }
+  }
+
   var stored = readStored();
   var utm = {};
 
   KEYS.forEach(function (key) {
-    utm[key] = params.get(key) || stored[key] || '';
+    utm[key] = urlParams[key] || stored[key] || '';
   });
 
   try {
     global.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(utm));
   } catch (e) {
-    /* sessionStorage unavailable (privacy mode etc.) — degrade to no UTM tracking */
+    /* sessionStorage unavailable (privacy mode etc.) */
   }
 
-  var utmVal = utm.utm || '';
-  var utmSourceVal = utm.utm_source || utmVal;
+  var utmVal = utm.utm || urlParams.utm || stored.utm || '';
+  var utmSourceVal = utm.utm_source || urlParams.utm_source || utmVal;
 
   global.WANGOES_UTM = {
     utm: utmVal,
     utmSource: utmSourceVal,
+    utm_source: utmSourceVal,
     utmMedium: utm.utm_medium || '',
+    utm_medium: utm.utm_medium || '',
     utmCampaign: utm.utm_campaign || '',
+    utm_campaign: utm.utm_campaign || '',
     utmTerm: utm.utm_term || '',
-    utmContent: utm.utm_content || ''
+    utm_term: utm.utm_term || '',
+    utmContent: utm.utm_content || '',
+    utm_content: utm.utm_content || ''
   };
 })(window);

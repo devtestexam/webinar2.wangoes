@@ -49,23 +49,29 @@
 
     var utm = global.WANGOES_UTM || {};
 
+    var utmVal = utm.utm || '';
+    var utmSourceVal = utm.utmSource || utm.utm_source || utmVal;
+
     var payload = {};
     var base = {
       page: global.location.pathname,
       timestamp: new Date().toISOString(),
       userAgent: global.navigator ? global.navigator.userAgent : '',
-      utm: utm.utm,
-      utmSource: utm.utmSource,
-      utmMedium: utm.utmMedium,
-      utmCampaign: utm.utmCampaign,
-      utmTerm: utm.utmTerm,
-      utmContent: utm.utmContent
+      utm: utmVal,
+      utmSource: utmSourceVal,
+      utm_source: utmSourceVal,
+      utmMedium: utm.utmMedium || utm.utm_medium || '',
+      utmCampaign: utm.utmCampaign || utm.utm_campaign || '',
+      utmTerm: utm.utmTerm || utm.utm_term || '',
+      utmContent: utm.utmContent || utm.utm_content || ''
     };
 
-    // Merge base metadata first, then caller fields, then drop anything empty
-    // so we never ship meaningless blank columns to the sheet.
+    // Always include utm, utmSource, utm_source in payload (even if empty string),
+    // and include other base metadata if non-empty.
     Object.keys(base).forEach(function (key) {
-      if (base[key]) payload[key] = base[key];
+      if (key === 'utm' || key === 'utmSource' || key === 'utm_source' || base[key]) {
+        payload[key] = base[key];
+      }
     });
     Object.keys(fields || {}).forEach(function (key) {
       if (fields[key] !== undefined && fields[key] !== null && fields[key] !== '') {
