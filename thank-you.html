@@ -549,7 +549,7 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
          URL (Zoom / GHL webinar / StreamYard etc.). This ONE constant
          feeds all three calendar buttons.
          ============================================================ */
-      var WEBINAR_LINK = '{{WEBINAR_LINK}}';
+      var WEBINAR_LINK = 'https://webinar.gg/webinar-page/cmrxe55we01fjs60y0c9br0xp';
 
       /* Event: July 29 2026, 11:00–12:00 AM/PM ET.
          ET is UTC-4 on that date (EDT), so 11:00 ET = 15:00 UTC.
@@ -564,11 +564,7 @@ src="https://px.ads.linkedin.com/collect/?pid={{LINKEDIN_PARTNER_ID}}&fmt=gif" /
 
       /* ---------- Google Calendar ---------- */
       document.getElementById('gcalBtn').href =
-        'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-        '&text=' + encodeURIComponent(EVT.title) +
-        '&dates=' + EVT.startUTC + '/' + EVT.endUTC +
-        '&details=' + encodeURIComponent(EVT.details) +
-        '&location=' + encodeURIComponent(WEBINAR_LINK);
+        'https://calendar.google.com/calendar/u/0/r/eventedit?text=AI+Agents+Workshop+%E2%80%94+Wangoes&dates=20260729T150000Z/20260729T160000Z&location=https://webinar.gg/webinar-page/cmrxe55we01fjs60y0c9br0xp&utm_';
 
       /* ---------- Outlook (web) ---------- */
       document.getElementById('outlookBtn').href =
